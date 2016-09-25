@@ -1,0 +1,17 @@
+{
+  "name": "bolang",
+  "version": "0.0.1",
+  "description": "bo burnham's programming language",
+  "main": "bolang.js",
+  "scripts": {
+    "test": "node bolang.js"
+  },
+  "keywords": [
+    "lang"
+  ],
+  "author": "nanalan & kvackkvack",
+  "license": "WTFPL",
+  "dependencies": {
+    "get-stdin": "^5.0.1"
+  }
+}

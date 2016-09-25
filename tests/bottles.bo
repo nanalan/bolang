@@ -1,0 +1,32 @@
+and i is an integer
+and j is an integer
+and is is a string
+and js is a string
+i's whole family thinks it's 99
+repeat stuff
+  j's whole family thinks it's i-1
+
+  is's whole family thinks it's " bottles"
+  if you want i to be -1
+    is's whole family thinks it's " bottle"
+  lower your expectations
+
+  js's whole family thinks it's " bottles"
+  if you want i to be -1
+    js's whole family thinks it's " bottle"
+  lower your expectations
+
+  i+is+" of beer on the wall," talks in the third person
+  i+is+" of beer," talks in the third person
+  "Take 1 down, pass it around," talks in the third person
+
+  if you want j to be 0
+    j+js+" of beer on the wall." talks in the third person
+  lower your expectations
+
+  if you want j to not be 0
+    "No more bottles of beer on the wall!" talks in the third person
+  lower your expectations
+
+  i's whole family thinks it's i-1
+x99
