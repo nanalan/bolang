@@ -11,14 +11,30 @@ function bolang(raw) {
 
     if(line.length < 1) continue
 
-    // <expression> talks in the third person
     if(line.substr(-26) === ' talks in the third person') {
       let prints = expr(line.substr(0, line.lastIndexOf(' talks in the third person')), ctx, l)
       console.log(prints)
     } else if(line === "he's off script") {
       process.exit(0)
+    } else if(line.substr(0, 4) === 'and ' && line.substr(-9, 5) === ' is a') {
+      let varname = line.substr(4, line.lastIndexOf(' is a') -4)
+      let type = line.substr(-3)
+
+      ctx[varname] = [type, undefined]
+    } else if(line.match(/^(\w+)'s whole family thinks (it|he|she)'s (.*)$/)) {
+      let matches = line.match(/^(\w+)'s whole family thinks (it|he|she)'s (.*)$/)
+      let varname = matches[1]
+      let value = expr(matches[3], ctx, l)
+
+      if(ctx[varname]) {
+        // TODO type checks
+        ctx[varname][1] = value
+      } else throw `Variable "${varname}" does not exist on line ${l}`
+    } else if(line.substr(-21) === " isn't real you idiot") {
+      let varname = line.substr(0, line.lastIndexOf(" isn't real you idiot"))
+      delete ctx[varname]
     } else {
-      throw `Unknown at line ${l}`
+      throw `Syntax error on line ${l}`
     }
   }
 }
@@ -28,6 +44,7 @@ function expr(raw, ctx, line) {
   raw = raw + ' '
 
   let operators = {
+    // TODO type checks
     '+': (a, b) => a + b,
     '-': (a, b) => a - b,
     '*': (a, b) => a * b,
@@ -39,21 +56,32 @@ function expr(raw, ctx, line) {
   let is = {
     string: false,
     number: false,
+    variable: false,
     operator: '+',
   }
 
   for(let i = 0; i < raw.length; i++) {
     let char = raw[i]
 
-    if(is.operator === '?') {
+    if(is.variable === false && is.string === false && is.number === false && char.match(/\w/)) {
+      is.variable = char
+    } else if(is.variable) {
+      if(char.match(/\w/)) is.variable += char
+      else {
+        if(!ctx[is.variable]) throw `Variable "${is.variable}" does not exist on line ${line}:${i}`
+        result = operators[is.operator || '+'](result, ctx[is.variable][1])
+        is.operator = '?'
+        is.variable = false
+      }
+    } else if(is.operator === '?') {
       if(char === ' ') continue
       else if(operators.hasOwnProperty(char)) is.operator = char
-      else throw 'Unknown operator: ' + char + ' on line ' + line
+      else throw 'Unknown operator "' + char + '" on line ' + line + ':' + i
     } else if(is.string === false && char === '"') {
       is.string = ''
     } else if(is.string !== false) {
       if(char === '"') {
-        result = operators[is.operator](result, is.string)
+        result = operators[is.operator || '+'](result, is.string)
         is.operator = '?'
         is.string = false
       } else {
@@ -67,7 +95,7 @@ function expr(raw, ctx, line) {
       } else if(char === '.') {
         is.number += '.'
       } else {
-        result = operators[is.operator](result, parseFloat(is.number))
+        result = operators[is.operator || '+'](result, parseFloat(is.number))
         is.operator = '?'
         is.number = false
         i-- // we should parse this char too, seperately
@@ -75,7 +103,7 @@ function expr(raw, ctx, line) {
     } else if(char === ' ') {
       continue
     } else {
-      throw 'Unknown char in expression: ' + char + ' on line ' + line
+      throw 'Unknown expression char "' + char + '" on line ' + line + ':' + i
     }
   }
 

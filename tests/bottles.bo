@@ -1,7 +1,7 @@
-and i is an integer
-and j is an integer
-and is is a string
-and js is a string
+and i is an int
+and j is an int
+and is is a str
+and js is a str
 i's whole family thinks it's 99
 repeat stuff
   j's whole family thinks it's i-1
