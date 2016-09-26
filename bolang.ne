@@ -8,10 +8,10 @@ block[start, end] -> $start ":\n" lines $end {% (d, l, r) => {
 
 main -> lines {% d => d[0].lines %}
 
-lines -> (line "\n"):* {% (d, l, r) => {
+lines -> (line:? "\n"):* {% (d, l, r) => {
   let lines = d[0]
 
-  if(lines) lines = lines.map(line => line[0])
+  if(lines) lines = lines.filter(line => line[0]).map(line => line[0])
   else return r
 
   return { lines }
@@ -60,8 +60,7 @@ line  -> block["repeat stuff", "x" int]
 expr -> _ EQ _       {% d => d[1] %}
 
 B -> "(" _ AS _ ")"  {% d => d[2] %}
-    | float          {% d => ['num', d[0]] %}
-    | int            {% d => ['num', d[0]] %}
+    | num            {% d => ['num', d[0]] %}
     | var            {% d => ['var', d[0]] %}
     | string         {% d => ['str', d[0]] %}
     | bool           {% d => ['bool', d[0]] %}
@@ -80,8 +79,14 @@ AS -> AS _ "+" _ DM  {% d => ['+', d[0], d[4]] %}
 
 # Equality
 EQ -> EQ __ "to be" __ AS {% d => ['=', d[0], d[4]] %}
+    | EQ __ "to not be" __ AS {% d => ['!=', d[0], d[4]] %}
     | AS             {% id %}
 
+num   -> ("+" | "-"):? (int | float) {% d => {
+  let multiply = d[0] === '+' ? 1 : -1
+  let num = d[1]
+  return num * multiply
+} %}
 float -> int "." int {% d => parseFloat(d[0] + d[1] + d[2]) %}
 int   -> [0-9]:+     {% d => parseInt(d[0].join("")) %}
 
