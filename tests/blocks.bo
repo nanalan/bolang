@@ -1,0 +1,11 @@
+bo says stuff like this:
+  stuff talks in the third person
+exactly
+
+repeat stuff:
+  say: "this should print 10 times"
+x10
+
+if you want white to be black:
+  say: "haha."
+lower your expectations a lot

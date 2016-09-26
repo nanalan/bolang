@@ -12,7 +12,10 @@
   "author": "nanalan & kvackkvack",
   "license": "WTFPL",
   "dependencies": {
+    "cardinal": "^1.0.0",
+    "chalk": "^1.1.3",
     "get-stdin": "^5.0.1",
-    "sleep": "^4.0.0"
+    "js-object-pretty-print": "^0.2.0",
+    "nearley-make": "^1.0.0"
   }
 }

@@ -1,25 +1,26 @@
-an i
-an is
-a j
-a js
-i's whole family thinks it's 99
+this is i
+this is is
+i is 99
+
+this is j
+this is js
 repeat stuff
-  j's whole family thinks it's i-1
+  j is i-1
 
-  is's whole family thinks it's " bottles"
+  is is " bottles"
   if you want i to be -1
-    is's whole family thinks it's " bottle"
-  lower your expectations
+    is is " bottle"
+  lower your expectations a few
 
-  js's whole family thinks it's " bottles"
+  js is " bottles"
   if you want i to be -1
-    js's whole family thinks it's " bottle"
+    js is " bottle"
   lower your expectations
 
   i+is+" of beer on the wall," talks in the third person
   i+is+" of beer," talks in the third person
   "Take 1 down, pass it around," talks in the third person
-  
+
   read a book
 
   if you want j to be 0
@@ -28,7 +29,7 @@ repeat stuff
 
   if you want j to not be 0
     "No more bottles of beer on the wall!" talks in the third person
-  lower your expectations
+  lower your expectations a lot
 
-  i's whole family thinks it's i-1
+  i is i-1
 x99
