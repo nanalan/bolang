@@ -15,9 +15,9 @@ variables may only contain `A-Za-z0-9_`
 expressions are read right to left  
 expressions may only contain `+-*/^% `, variables, or strings. **no brackets**  
 
-below, **expr** is an expression
-below, **var** is a variable reference
-below, **{...}** is a block of code
+below, **expr** is an expression  
+below, **var** is a variable reference  
+below, **{...}** is a block of code  
 
 statement                                    | does             | reference           
 --------------------------------------------:|:---------------- |:-------------------:
