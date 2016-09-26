@@ -8,12 +8,12 @@
 `cat <file>.bo | bolang.js`
 
 ### how
-one statement per line
-leading and trailing whitepsace on lines are ignored
-strings `"are like this"`
-variables may only contain `A-Za-z0-9_`
-expressions are read right to left
-expressions may only contain `+-*/^% `, variables, or strings. **no brackets**
+one statement per line  
+leading and trailing whitepsace on lines are ignored  
+strings `"are like this"`  
+variables may only contain `A-Za-z0-9_`  
+expressions are read right to left  
+expressions may only contain `+-*/^% `, variables, or strings. **no brackets**  
 
 below, **expr** is an expression
 below, **var** is a variable reference
