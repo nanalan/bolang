@@ -16,23 +16,25 @@ function bolang(raw) {
       console.log(prints)
     } else if(line === "he's off script") {
       process.exit(0)
-    } else if(line.substr(0, 4) === 'and ' && line.substr(-9, 5) === ' is a') {
-      let varname = line.substr(4, line.lastIndexOf(' is a') -4)
-      let type = line.substr(-3)
+    } else if(line.match(/^an? (\w+)$/)) {
+      let varname = line.match(/^an? (\w+)$/)[1]
 
-      ctx[varname] = [type, undefined]
+      ctx[varname] = null
     } else if(line.match(/^(\w+)'s whole family thinks (it|he|she)'s (.*)$/)) {
       let matches = line.match(/^(\w+)'s whole family thinks (it|he|she)'s (.*)$/)
       let varname = matches[1]
       let value = expr(matches[3], ctx, l)
 
-      if(ctx[varname]) {
-        // TODO type checks
-        ctx[varname][1] = value
-      } else throw `Variable "${varname}" does not exist on line ${l}`
+      if(typeof ctx[varname] !== 'undefined') {
+        ctx[varname] = value
+      } else throw `Variable "${varname}" undefined on line ${l}`
     } else if(line.substr(-21) === " isn't real you idiot") {
       let varname = line.substr(0, line.lastIndexOf(" isn't real you idiot"))
       delete ctx[varname]
+    } else if(line.match(/^f+r+a+n+k+$/)) {
+      console.log(ctx)
+    } else if(line === 'read a book') {
+      require('sleep').sleep(1)
     } else {
       throw `Syntax error on line ${l}`
     }
@@ -68,8 +70,8 @@ function expr(raw, ctx, line) {
     } else if(is.variable) {
       if(char.match(/\w/)) is.variable += char
       else {
-        if(!ctx[is.variable]) throw `Variable "${is.variable}" does not exist on line ${line}:${i}`
-        result = operators[is.operator || '+'](result, ctx[is.variable][1])
+        if(typeof ctx[is.variable] === 'undefined') throw `Variable "${is.variable}" undefined on line ${line}:${i}`
+        result = operators[is.operator || '+'](result, ctx[is.variable])
         is.operator = '?'
         is.variable = false
       }

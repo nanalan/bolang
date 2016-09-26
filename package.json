@@ -12,6 +12,7 @@
   "author": "nanalan & kvackkvack",
   "license": "WTFPL",
   "dependencies": {
-    "get-stdin": "^5.0.1"
+    "get-stdin": "^5.0.1",
+    "sleep": "^4.0.0"
   }
 }
