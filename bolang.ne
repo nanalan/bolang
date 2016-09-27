@@ -33,9 +33,8 @@ line  -> block["repeat stuff", "x" int]
 } %}
        | expr " talks in the third person" {% (d, l, r) => {
   return {
-    what: 'call',
-    which: 'print',
-    with: [d[0]]
+    what: 'print',
+    which: d[0]
   }
 } %}
        | var (":" _ (" " expr):+):? {% (d, l, r) => {
@@ -95,8 +94,9 @@ string -> dqstring   {% d => d[0] %}
         | sqstring   {% d => d[0] %}
         | btstring   {% d => d[0] %}
 
-bool -> "white"      {% d => true  %}
-      | "black"      {% d => false %}
+bool -> "white"      {% d => 'true'  %}
+      | "black"      {% d => 'false' %}
+      | "asian"      {% d => 'maybe' %}
 
 var -> varchar:+     {% (d, l, r) => {
   let i = d[0].join('')

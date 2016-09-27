@@ -5,7 +5,8 @@
 `npm install`
 
 ### run
-`node bolang <src file> -o <output file>`
+`node bolang <src.bo> -o <out.js>`
+use `--tree` or `-t` to also output the parse-tree.
 
 ### how
 ONE, TWO, **ONE, TWO, THREE, FOUR! *LET'S ROCK!!!***
