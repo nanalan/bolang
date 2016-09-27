@@ -5,4 +5,4 @@
 `npm install`
 
 ### run
-`cat <file>.bo | bolang.js`
+`node bolang <src file> -o <output file>`
